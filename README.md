@@ -1,67 +1,66 @@
-Configuración de Servidor DHCP con Kea usando Vagrant
+# 🚀 DHCP Server Setup with Kea using Vagrant
 
-Este proyecto configura un servidor DHCP utilizando Kea DHCP en Ubuntu 22.04, desplegado en un entorno virtualizado con Vagrant y VirtualBox.
+This project sets up a **DHCP server** using **Kea DHCP** on Ubuntu 22.04, deployed in a virtualized environment with **Vagrant** and **VirtualBox**.
 
-📌 Requisitos
+---
 
-Vagrant
+## 📌 Requirements
+- [Vagrant](https://www.vagrantup.com/)
+- [VirtualBox](https://www.virtualbox.org/)
+- Git (to clone the repository)
 
-VirtualBox
+---
 
+## 📖 Installation & Usage
 
-🚀 Instalación y Uso
-
-1️⃣ Clonar el Repositorio y Cambiar a la Rama DHCP
-
-git clone https://github.com/tuusuario/tu-repo.git
-cd tu-repo
+### 1️⃣ Clone the Repository and Switch to the DHCP Branch
+```bash
+git clone https://github.com/yourusername/yourrepo.git
+cd yourrepo
 git checkout feature-dhcp-config
 
-2️⃣ Levantar la Máquina Virtual con el Servidor DHCP
+```
 
+### 2️⃣ Start the Virtual Machine with the DHCP Server
+```bash
 vagrant up
+```
+This will download the Ubuntu 22.04 base image, install Kea DHCP, and apply the configuration.
 
-Esto descargará la imagen base de Ubuntu 22.04, instalará Kea DHCP y aplicará la configuración.
-
-3️⃣ Acceder al Servidor DHCP
-
+### 3️⃣ Access the DHCP Server
+```bash
 vagrant ssh kea-dhcp
-
-4️⃣ Verificar el Estado del Servicio DHCP
-
+```
+### 4️⃣ Check DHCP Service Status
+```bash
 sudo systemctl status kea-dhcp4-server
+```
+If active, you should see a message indicating that the service is running.
 
-Si está activo, verás un mensaje indicando que el servicio está en ejecución.
-
-5️⃣ Verificar las Concesiones de DHCP
-
+### 5️⃣ Verify DHCP Leases
+```bash
 cat /var/lib/kea/kea-leases4.csv
+```
+This will display the IP addresses assigned to clients.
 
-Esto mostrará las direcciones IP asignadas a los clientes.
+📜 Key Files
 
-📜 Archivos Clave
+- Vagrantfile: Defines the virtual machine and installs Kea DHCP.
 
-Vagrantfile: Define la máquina virtual y la instalación de Kea.
+- kea-dhcp4.conf: Configuration file for the DHCP server (automatically copied to the system).
 
-kea-dhcp4.conf: Configuración del servidor DHCP (se copia automáticamente al sistema).
+⚡ Useful Commands
 
-📌 Comandos Útiles
-
-Apagar la máquina:
-
+Shut down the VM:
+```bash
 vagrant halt
-
-Eliminar la máquina:
-
+```
+Destroy the VM:
+```bash
 vagrant destroy
+```
 
-Reiniciar la configuración:
-
+Restart the configuration:
+```bash
 vagrant reload --provision
-
-📜 Licencia
-
-Este proyecto está bajo la licencia MIT.
-
-Si tienes dudas o sugerencias, ¡abre un issue en el repositorio! 🚀
-
+```
