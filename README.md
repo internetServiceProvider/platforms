@@ -15,7 +15,7 @@ This project sets up a **DHCP server** using **Kea DHCP** on Ubuntu 22.04, deplo
 
 ### 1️⃣ Clone the Repository and Switch to the DHCP Branch
 ```bash
-git clone https://github.com/yourusername/yourrepo.git
+git clone https://github.com/internetServiceProvider/platforms.git
 cd yourrepo
 git checkout feature-dhcp-config
 
