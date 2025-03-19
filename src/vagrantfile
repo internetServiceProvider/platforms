@@ -1,0 +1,25 @@
+# Vagrantfile para montar un servidor DHCP con Kea en VirtualBox
+
+# -- mode: ruby --
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+    # Definición de la máquina virtual para el servidor DHCP
+    config.vm.define "kea-dhcp", autostart: false do |dhcp|
+      dhcp.vm.box = "ubuntu/jammy64"
+      dhcp.vm.hostname = "dhcp"
+      dhcp.vm.network "public_network", type: "dhcp"
+      
+      dhcp.vm.provider "virtualbox" do |vb|
+        vb.customize ["modifyvm", :id, "--memory", "512", "--cpus", "1", "--name", "kea-dhcp"]
+      end
+      
+      dhcp.vm.provision "shell", inline: <<-SHELL
+        sudo apt-get update
+        sudo apt-get install mariadb-server kea-dhcp4-server kea-admin -y
+        sudo cp /vagrant/kea-dhcp4.conf /etc/kea/kea-dhcp4.conf
+        sudo systemctl restart kea-dhcp4-server
+      SHELL
+    end  
+  end
+  
