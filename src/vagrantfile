@@ -2,16 +2,31 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-  config.vm.define "kea-dhcp", autostart: false do |dhcp|
-    dhcp.vm.box = "ubuntu/jammy64"
-    dhcp.vm.hostname = "dhcp"
-    dhcp.vm.network "public_network" , type: "dhcp"
-    dhcp.vm.network "private_network", type: "static", ip: "192.168.200.2" #ajustar dependiendo el pool de direcciones
-    dhcp.vm.provider "virtualbox" do |vb|
-     vb.customize ["modifyvm", :id, "--memory", "512", "--cpus", "1", "--name", "kea-dhcp"]
+  config.vm.define "kea-dhcp4", autostart: false do |dhcp4|
+    dhcp4.vm.box = "ubuntu/jammy64"
+    dhcp4.vm.hostname = "dhcp4"
+    dhcp4.vm.network "public_network", type: "dhcp"
+    dhcp4.vm.network "private_network", type: "static", ip: "192.168.200.2" # Ajustar según el pool de direcciones
+    
+    dhcp4.vm.provider "virtualbox" do |vb|
+      vb.customize ["modifyvm", :id, "--memory", "512", "--cpus", "1", "--name", "kea-dhcp4"]
     end
-    dhcp.vm.provision "shell", inline: "sudo apt-get update"
-    dhcp.vm.provision "shell", inline: "sudo apt-get install mariadb-server kea-dhcp4-server kea-admin -y"
+
+    # Actualizar paquetes e instalar Kea DHCP
+    dhcp4.vm.provision "shell", inline: <<-SHELL
+      sudo apt-get update
+      sudo apt-get install -y mariadb-server kea-dhcp4-server kea-admin
+    SHELL
+
+    # Copiar el archivo de configuración de Kea DHCP desde el host a la VM
+    dhcp4.vm.provision "file", source: "kea-dhcp-config.json", destination: "/tmp/kea-dhcp4.json"
+
+    # Mover el archivo a la ubicación correcta y reiniciar el servicio
+    dhcp4.vm.provision "shell", inline: <<-SHELL
+      sudo mv /etc/kea/kea-dhcp4.conf /etc/kea/kea-dhcp4.conf.copy
+      sudo mv /tmp/kea-dhcp4.json /etc/kea/kea-dhcp4.conf
+      sudo chown root:root /etc/kea/kea-dhcp4.conf
+      sudo systemctl restart kea-dhcp4-server
+    SHELL
   end  
-  
 end
