@@ -5,11 +5,17 @@ Vagrant.configure("2") do |config|
   config.vm.define "kea-dhcp4", autostart: false do |dhcp4|
     dhcp4.vm.box = "ubuntu/jammy64"
     dhcp4.vm.hostname = "dhcp4"
+
+    # Adaptador 2 - Wi-Fi (wlan0) en bridge con DHCP
     dhcp4.vm.network "public_network", type: "dhcp"
-    dhcp4.vm.network "private_network", type: "static", ip: "192.168.200.2" # Ajustar según el pool de direcciones
-    
+
+    # Adaptador 3 - Ethernet (eth0) en bridge con IP estática
+    dhcp4.vm.network "public_network", bridge: "eth0", ip: "192.168.200.2"
+
     dhcp4.vm.provider "virtualbox" do |vb|
       vb.customize ["modifyvm", :id, "--memory", "512", "--cpus", "1", "--name", "kea-dhcp4"]
+      vb.customize ["modifyvm", :id, "--nicpromisc2", "allow-all"]  # Modo promiscuo en Adaptador 2 (Wi-Fi)
+      vb.customize ["modifyvm", :id, "--nicpromisc3", "allow-all"]  # Modo promiscuo en Adaptador 3 (Ethernet)
     end
 
     # Actualizar paquetes e instalar Kea DHCP
@@ -19,7 +25,7 @@ Vagrant.configure("2") do |config|
     SHELL
 
     # Copiar el archivo de configuración de Kea DHCP desde el host a la VM
-    dhcp4.vm.provision "file", source: "kea-dhcp-config.json", destination: "/tmp/kea-dhcp4.json"
+    dhcp4.vm.provision "file", source: "dhcp/kea-dhcp-config.json", destination: "/tmp/kea-dhcp4.json"
 
     # Mover el archivo a la ubicación correcta y reiniciar el servicio
     dhcp4.vm.provision "shell", inline: <<-SHELL
