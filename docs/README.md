@@ -1,3 +1,7 @@
+# DIAGRAMA DE RED
+- [DRAW.io](https://drive.google.com/file/d/1fOLiqbf9Dqsi6Pjz7pXQDc1abWRWNbg0/view?usp=drive_link)
+
+# BORRADOR
 # All the information and docs in this folder.
 
 Based on the documentation topic, it should be placed in a specific folder. Avoid creating a single, overly long README with all the information. Instead, organize the content by feature or topic for better clarity and maintainability.

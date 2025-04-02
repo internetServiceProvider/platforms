@@ -1,7 +1,7 @@
 {
   "Dhcp4": {
     "interfaces-config": {
-      "interfaces": ["enp0s9"]  
+      "interfaces": ["enp0s9"]
     },
     "control-socket": {
       "socket-type": "unix",
@@ -16,23 +16,20 @@
     "rebind-timer": 2000,    
     "subnet4": [
       {
-        "subnet": "192.168.100.0/24",  
+        "subnet": "192.168.10.0/24",  
         "pools": [
           {
-            "pool": "192.168.100.100 - 192.168.100.200"  
-            
+            "pool": "192.168.10.50 - 192.168.10.150"  
           }
         ],
         "option-data": [
           {
             "name": "routers",
-            "data": "192.168.100.1"  
-            
+            "data": "192.168.10.1"  
           },
           {
             "name": "domain-name-servers",
             "data": "8.8.8.8, 8.8.4.4"  
-            
           }
         ]
       }

@@ -7,4 +7,4 @@ network:
       dhcp4: true
     enp0s9:
       addresses:
-      - 192.168.200.2/24
+      - 192.168.20.3/24
