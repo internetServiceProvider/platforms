@@ -1,7 +1,7 @@
 # DIAGRAMA DE RED
 - [DRAW.io](https://drive.google.com/file/d/1fOLiqbf9Dqsi6Pjz7pXQDc1abWRWNbg0/view?usp=drive_link)
 
-#Link de referencia 
+# Link de referencia 
 - [Link De uso](https://www.youtube.com/watch?v=A-mDAB6jzbU)
 
 # BORRADOR
