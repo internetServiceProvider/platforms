@@ -1,5 +1,5 @@
 
-# 🧠 ISP Infrastructure – I2T Lab Project
+# 🧠 ISP Platafform – I2T Lab Project
 
 This repository contains the modular implementation of services required to deploy an ISP using the **i2t lab's GPON network**. All services are virtualized via **Vagrant + VirtualBox** on top of **Ubuntu Server**.
 
