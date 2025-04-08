@@ -1,5 +1,5 @@
 
-# 🧠 ISP Infrastructure – I2T Lab Project
+# 🧠 ISP Platform – I2T Lab Project
 
 This repository contains the modular implementation of services required to deploy an ISP using the **i2t lab's GPON network**. All services are virtualized via **Vagrant + VirtualBox** on top of **Ubuntu Server**.
 
@@ -7,10 +7,10 @@ This repository contains the modular implementation of services required to depl
 
 ## 📁 Repository Structure
 
-Each functionality or service must be organized into separate folders by purpose. By convention, all implementations live under the `services/` directory.
+Each functionality or service must be organized into separate folders by purpose. By convention, all implementations live under the `features/` directory.
 
 ```
-services/
+features/
 ├── dhcpv4/
 │   └── Vagrantfile
 │   └── kea-dhcp4.conf
@@ -44,7 +44,7 @@ services/
 
 ## 🛠️ Implementation Rules
 
-- All **code and configurations** must go inside their respective folder in `services/`.
+- All **code and configurations** must go inside their respective folder in `features/`.
 - Each service must have its own `Vagrantfile` to enable independent deployment.
 - Configuration files must be **well commented and documented**.
 - Dependencies should be installed via `provision` blocks or shell scripts.
