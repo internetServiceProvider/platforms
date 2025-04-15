@@ -1,0 +1,25 @@
+{
+  "origin": "midominio.test",
+  "records": [
+    {
+      "name": "ns1",
+      "type": "A",
+      "value": "192.168.20.2"
+    },
+    {
+      "name": "ns1",
+      "type": "AAAA",
+      "value": "2001:db8:0:1::1"
+    },
+    {
+      "name": "www",
+      "type": "A",
+      "value": "192.168.20.10"
+    },
+    {
+      "name": "www",
+      "type": "AAAA",
+      "value": "2001:db8:0:1::10"
+    }
+  ]
+}
