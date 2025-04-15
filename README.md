@@ -10,8 +10,8 @@ This repository contains the modular implementation of services required to depl
 Each functionality or service must be organized into separate folders by purpose. By convention, all implementations live under the `features/` directory.
 
 ```
-features/
-├── dhcpv4/
+src/
+├── dhcp/
 │   └── Vagrantfile
 │   └── kea-dhcp-config.json
 │
