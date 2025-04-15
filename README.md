@@ -13,15 +13,20 @@ Each functionality or service must be organized into separate folders by purpose
 features/
 ├── dhcpv4/
 │   └── Vagrantfile
-│   └── kea-dhcp4.conf
+│   └── kea-dhcp-config.json
 │
 ├── core_virtualization/
 │   └── Vagrantfile
 │   └── setup.sh (Kubernetes, Grafana, Prometheus)
 │
 ├── dns/
-│   └── Vagrantfile
-│   └── named.conf.options
+|   ├─config/
+│   ├── zone_forward.json
+│   ├── zone_reverse.json
+│   |── zone_reverse_ipv6.json
+|   ├── scripts/
+│   |       └── setup_dns.sh
+|   └── Vagrantfile
 │
 ├── webserver/
 │   └── Vagrantfile
@@ -93,7 +98,7 @@ vagrant destroy
 
 - [x] Deploy DHCPv4
 - [ ] Deploy core VM with Kubernetes and Grafana
-- [ ] Deploy DNS
+- [x] Deploy DNS
 - [ ] Deploy Load Balancer
 - [ ] Deploy LibreQoS
 - [ ] Deploy web server with QUIC
