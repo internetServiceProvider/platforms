@@ -8,10 +8,10 @@ This document explains how to deploy the `kea-dhcp4` service using Vagrant + Vir
 ## 📁 Folder Structure
 
 ```
-features/
-└── dhcpv4/
-    ├── Vagrantfile
-    └── kea-dhcp-config.json
+src/
+└── dhcp/
+│   └── Vagrantfile
+│   └── kea-dhcp-config.json
 ```
 
 ---
