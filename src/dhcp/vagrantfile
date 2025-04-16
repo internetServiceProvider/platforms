@@ -2,37 +2,34 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-  config.vm.define "kea-dhcp4", autostart: false do |dhcp4|
+  config.vm.define "kea-dhcp4", autostart: true do |dhcp4|
     dhcp4.vm.box = "ubuntu/jammy64"
     dhcp4.vm.hostname = "dhcp4"
 
-    # Adaptador 2 - Wi-Fi (wlan0) en bridge con DHCP
-    dhcp4.vm.network "public_network", type: "dhcp"
-
-    # Adaptador 3 - Ethernet (eth1) en bridge con IP estática
+    # Adaptador 2: Red de servicios (eth1)
     dhcp4.vm.network "public_network", bridge: "eth1", ip: "192.168.20.3"
+
+    # Adaptador 3: Red interna para DHCP (192.168.10.0/24) a fines de testeo
+    dhcp4.vm.network "private_network", ip: "192.168.10.1", virtualbox__intnet: "red-kea"
 
     dhcp4.vm.provider "virtualbox" do |vb|
       vb.customize ["modifyvm", :id, "--memory", "512", "--cpus", "1", "--name", "kea-dhcp4"]
-      vb.customize ["modifyvm", :id, "--nicpromisc2", "allow-all"]  # Modo promiscuo en Adaptador 2 (Wi-Fi)
-      vb.customize ["modifyvm", :id, "--nicpromisc3", "allow-all"]  # Modo promiscuo en Adaptador 3 (Ethernet)
+      vb.customize ["modifyvm", :id, "--nicpromisc2", "allow-all"]
+      vb.customize ["modifyvm", :id, "--nicpromisc3", "allow-all"]
     end
 
-    # Actualizar paquetes e instalar Kea DHCP
     dhcp4.vm.provision "shell", inline: <<-SHELL
-      sudo apt-get update
-      sudo apt-get install -y mariadb-server kea-dhcp4-server kea-admin
+      apt-get update
+      apt-get install -y mariadb-server kea-dhcp4-server kea-admin
     SHELL
 
-    # Copiar el archivo de configuración de Kea DHCP desde el host a la VM
-    dhcp4.vm.provision "file", source: "dhcp/kea-dhcp-config.json", destination: "/tmp/kea-dhcp4.json"
+    dhcp4.vm.provision "file", source: "kea-dhcp-config.json", destination: "/tmp/kea-dhcp4.json"
 
-    # Mover el archivo a la ubicación correcta y reiniciar el servicio
     dhcp4.vm.provision "shell", inline: <<-SHELL
-      sudo mv /etc/kea/kea-dhcp4.conf /etc/kea/kea-dhcp4.conf.copy
-      sudo mv /tmp/kea-dhcp4.json /etc/kea/kea-dhcp4.conf
-      sudo chown root:root /etc/kea/kea-dhcp4.conf
-      sudo systemctl restart kea-dhcp4-server
+      mv /etc/kea/kea-dhcp4.conf /etc/kea/kea-dhcp4.conf.bak
+      mv /tmp/kea-dhcp4.json /etc/kea/kea-dhcp4.conf
+      chown root:root /etc/kea/kea-dhcp4.conf
+      systemctl restart kea-dhcp4-server
     SHELL
-  end  
+  end
 end

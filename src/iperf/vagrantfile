@@ -1,7 +1,7 @@
 # -- mode: ruby --
 # vi: set ft=ruby
 Vagrant.configure("2") do |config|
-    config.vm.define "iperf", autostart: false do |iperf|
+    config.vm.define "iperf", autostart: true do |iperf|
     iperf.vm.box = "ubuntu/jammy64"
     iperf.vm.network "private_network", type: "dhcp"
     # Adaptador 3 - Ethernet (eth1) en bridge con IP estática
