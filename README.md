@@ -7,18 +7,16 @@ This repository contains the modular implementation of services required to depl
 
 ## 📁 Repository Structure
 
-Each functionality or service must be organized into separate folders by purpose. By convention, all implementations live under the `features/` directory.
+Each functionality or service must be organized into separate folders by purpose. By convention, all implementations live under the `Services/` directory.
 
 ```
 src/
 ├── dhcp/
-│   └── Vagrantfile
-│   └── kea-dhcp-config.json
-│
-├── core_virtualization/
-│   └── Vagrantfile
-│   └── setup.sh (Kubernetes, Grafana, Prometheus)
-│
+│   ├── Vagrantfile
+│   ├── kea-dhcp-config.json
+|   ├── scripts/
+│          └──ntp_client_setup.sh
+|
 ├── dns/
 |   ├─config/
 │   ├── zone_forward.json
@@ -26,30 +24,23 @@ src/
 │   |── zone_reverse_ipv6.json
 |   ├── scripts/
 │   |       └── setup_dns.sh
+│   |       └── ntp_client_setup.sh
 |   └── Vagrantfile
 │
-├── webserver/
-│   └── Vagrantfile
-│   └── index.html
-│
-├── firewall/
-│   └── Vagrantfile
-│   └── iptables_rules.sh
-│
-├── libre_qos/
-│   └── Vagrantfile
-│   └── setup_libreqos.sh
-│
-├── openwisp/
-│   └── Vagrantfile
-│   └── setup_openwisp.sh
+├── ntp/
+|   ├── ntp_server_setup.sh
+|   └── Vagrantfile
+├── iperf/
+|   └── Vagrantfile
+├── clientTest/
+
 ```
 
 ---
 
 ## 🛠️ Implementation Rules
 
-- All **code and configurations** must go inside their respective folder in `features/`.
+- All **code and configurations** must go inside their respective folder in `Services/`.
 - Each service must have its own `Vagrantfile` to enable independent deployment.
 - Configuration files must be **well commented and documented**.
 - Dependencies should be installed via `provision` blocks or shell scripts.
@@ -97,8 +88,9 @@ vagrant destroy
 ## 📋 Project TODOs
 
 - [x] Deploy DHCPv4
-- [ ] Deploy core VM with Kubernetes and Grafana
+- [x] Deploy NTP
 - [x] Deploy DNS
+- [x] Deploy IPERF
 - [ ] Deploy Load Balancer
 - [ ] Deploy LibreQoS
 - [ ] Deploy web server with QUIC

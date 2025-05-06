@@ -12,6 +12,15 @@ Vagrant.configure("2") do |config|
     config.vm.synced_folder "./scripts", "/dns/scripts"
   
     config.vm.provision "shell", path: "scripts/setup_dns.sh"
+    
+    config.vm.provision "file", source: "scripts/ntp_client_setup.sh", destination: "/tmp/ntp_client_setup.sh"
+    config.vm.provision "shell", inline: <<-SHELL
+    chmod +x /tmp/ntp_client_setup.sh
+    /tmp/ntp_client_setup.sh
+  SHELL
+
+  # Ejecutar el script de configuración DNS después de configurar NTP
+  config.vm.provision "shell", path: "scripts/setup_dns.sh"
 
 
   end

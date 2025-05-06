@@ -24,6 +24,12 @@ Vagrant.configure("2") do |config|
     SHELL
 
     dhcp4.vm.provision "file", source: "kea-dhcp-config.json", destination: "/tmp/kea-dhcp4.json"
+    dhcp4.vm.provision "file", source: "scripts/ntp_client_setup.sh", destination: "/tmp/ntp_client_setup.sh"
+
+    dhcp4.vm.provision "shell", inline: <<-SHELL
+      chmod +x /tmp/ntp_client_setup.sh
+      /tmp/ntp_client_setup.sh
+    SHELL
 
     dhcp4.vm.provision "shell", inline: <<-SHELL
       mv /etc/kea/kea-dhcp4.conf /etc/kea/kea-dhcp4.conf.bak
