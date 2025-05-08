@@ -1,0 +1,41 @@
+# -- mode: ruby --
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.define "kea-dhcp4", autostart: true do |dhcp4|
+    dhcp4.vm.box = "ubuntu/jammy64"
+    dhcp4.vm.hostname = "dhcp4"
+
+    # Adaptador 2: Red de servicios (eth1)
+    dhcp4.vm.network "public_network", bridge: "eth1", ip: "192.168.20.3"
+
+    # Adaptador 3: Red interna para DHCP (192.168.10.0/24) a fines de testeo
+    dhcp4.vm.network "private_network", ip: "192.168.10.1", virtualbox__intnet: "red-kea"
+
+    dhcp4.vm.provider "virtualbox" do |vb|
+      vb.customize ["modifyvm", :id, "--memory", "512", "--cpus", "1", "--name", "kea-dhcp4"]
+      vb.customize ["modifyvm", :id, "--nicpromisc2", "allow-all"]
+      vb.customize ["modifyvm", :id, "--nicpromisc3", "allow-all"]
+    end
+
+    dhcp4.vm.provision "shell", inline: <<-SHELL
+      apt-get update
+      apt-get install -y mariadb-server kea-dhcp4-server kea-admin
+    SHELL
+
+    dhcp4.vm.provision "file", source: "kea-dhcp-config.json", destination: "/tmp/kea-dhcp4.json"
+    dhcp4.vm.provision "file", source: "scripts/ntp_client_setup.sh", destination: "/tmp/ntp_client_setup.sh"
+
+    dhcp4.vm.provision "shell", inline: <<-SHELL
+      chmod +x /tmp/ntp_client_setup.sh
+      /tmp/ntp_client_setup.sh
+    SHELL
+
+    dhcp4.vm.provision "shell", inline: <<-SHELL
+      mv /etc/kea/kea-dhcp4.conf /etc/kea/kea-dhcp4.conf.bak
+      mv /tmp/kea-dhcp4.json /etc/kea/kea-dhcp4.conf
+      chown root:root /etc/kea/kea-dhcp4.conf
+      systemctl restart kea-dhcp4-server
+    SHELL
+  end
+end

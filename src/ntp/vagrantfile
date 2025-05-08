@@ -1,0 +1,22 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.define "ntp-server" do |ntp|
+    ntp.vm.box = "ubuntu/jammy64"
+    ntp.vm.hostname = "ntp-colombia"
+    ntp.vm.network "public_network", ip: "192.168.20.10"
+
+    ntp.vm.provider "virtualbox" do |vb|
+      vb.memory = "512"
+      vb.cpus = 1
+      vb.name = "ntp-server-colombia"
+    end
+
+    ntp.vm.provision "file", source: "ntp_server_setup.sh", destination: "/tmp/ntp_server_setup.sh"
+    ntp.vm.provision "shell", inline: <<-SHELL
+      chmod +x /tmp/ntp_server_setup.sh
+      /tmp/ntp_server_setup.sh
+    SHELL
+  end
+end

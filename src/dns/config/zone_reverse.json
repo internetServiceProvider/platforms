@@ -1,0 +1,14 @@
+{
+    "origin": "20.168.192.in-addr.arpa",
+    "records": [
+      {
+        "name": "2",
+        "value": "ns1.midominio.test"
+      },
+      {
+        "name": "10",
+        "value": "www.midominio.test"
+      }
+    ]
+  }
+  
