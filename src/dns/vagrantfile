@@ -1,27 +1,13 @@
 Vagrant.configure("2") do |config|
-    config.vm.box = "ubuntu/jammy64"
-    config.vm.hostname = "dns-server"
-    config.vm.network "public_network", ip: "192.168.20.2"
-  
-    config.vm.provider "virtualbox" do |vb|
-        vb.customize ["modifyvm", :id, "--memory", "512", "--cpus", "1", "--name", "dns"]
-        vb.customize ["modifyvm", :id, "--nicpromisc2", "allow-all"]
-    end
-  
-    config.vm.synced_folder "./config", "/dns/config"
-    config.vm.synced_folder "./scripts", "/dns/scripts"
-  
-    config.vm.provision "shell", path: "scripts/setup_dns.sh"
-    
-    config.vm.provision "file", source: "scripts/ntp_client_setup.sh", destination: "/tmp/ntp_client_setup.sh"
-    config.vm.provision "shell", inline: <<-SHELL
-    chmod +x /tmp/ntp_client_setup.sh
-    /tmp/ntp_client_setup.sh
-  SHELL
-
-  # Ejecutar el script de configuración DNS después de configurar NTP
-  config.vm.provision "shell", path: "scripts/setup_dns.sh"
-
-
+  config.vm.define "dns-primary" do |primary|
+    primary.vm.box = "ubuntu/jammy64"
+    primary.vm.network "public_network", ip: "192.168.20.2"
+   
   end
-  
+
+  config.vm.define "dns-secondary" do |secondary|
+    secondary.vm.box = "ubuntu/jammy64"
+    secondary.vm.network "public_network", ip: "192.168.20.3"
+    
+  end
+end

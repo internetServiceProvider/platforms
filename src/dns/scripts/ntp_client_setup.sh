@@ -11,7 +11,7 @@ apt-get install -y ntp ntpstat
 cat > /etc/ntp.conf << 'NTPEOF'
 driftfile /var/lib/ntp/ntp.drift
 # Servidor NTP local
-server 192.168.20.10 iburst prefer
+server 192.168.88.2 iburst prefer
 # Restricciones
 restrict 127.0.0.1
 restrict ::1

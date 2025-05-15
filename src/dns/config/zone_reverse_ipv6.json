@@ -1,14 +1,17 @@
 {
-    "origin": "1.0.0.0.0.0.0.0.0.0.0.0.8.b.d.0.1.0.0.2.ip6.arpa",
-    "records": [
-      {
-        "name": "1.0.0.0.0.0.0.0",
-        "value": "ns1.midominio.test"
-      },
-      {
-        "name": "0.1.0.0.0.0.0.0",
-        "value": "www.midominio.test"
-      }
-    ]
-  }
-  
+  "origin": "1.0.0.0.0.0.0.0.8.b.d.0.1.0.0.2.ip6.arpa",
+  "records": [
+    {
+      "name": "1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.",
+      "value": "ns1.akranes.xyz."
+    },
+    {
+      "name": "a.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.",
+      "value": "www.akranes.xyz."
+    },
+    {
+      "name": "4.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.",
+      "value": "mail.akranes.xyz."
+    }
+  ]
+}
