@@ -1,14 +1,21 @@
 {
     "origin": "20.168.192.in-addr.arpa",
     "records": [
-      {
-        "name": "2",
-        "value": "ns1.midominio.test"
-      },
-      {
-        "name": "10",
-        "value": "www.midominio.test"
-      }
+        {
+            "name": "2",
+            "value": "ns1.akranes.xyz."
+        },
+         {
+            "name": "3",
+            "value": "ns2.akranes.xyz."
+        },
+        {
+            "name": "100",
+            "value": "www.akranes.xyz."
+        },
+        {
+            "name": "20",
+            "value": "mail.akranes.xyz."
+        }
     ]
-  }
-  
+}

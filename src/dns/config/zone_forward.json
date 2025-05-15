@@ -1,10 +1,15 @@
 {
-  "origin": "midominio.test",
+  "origin": "akranes.xyz.",
   "records": [
     {
       "name": "ns1",
       "type": "A",
       "value": "192.168.20.2"
+    },
+    {
+      "name": "ns2",
+      "type": "A",
+      "value": "192.168.20.3"
     },
     {
       "name": "ns1",
@@ -14,12 +19,27 @@
     {
       "name": "www",
       "type": "A",
-      "value": "192.168.20.10"
+      "value": "192.168.20.100"
     },
     {
       "name": "www",
       "type": "AAAA",
       "value": "2001:db8:0:1::10"
+    },
+    {
+      "name": "mail",
+      "type": "A",
+      "value": "192.168.20.20"
+    },
+    {
+      "name": "@",
+      "type": "MX",
+      "value": "10 mail.akranes.xyz"
+    },
+    {
+      "name": "@",
+      "type": "TXT",
+      "value": "\"v=spf1 mx -all\""
     }
   ]
 }
