@@ -1,20 +1,20 @@
 {
-    "origin": "20.168.192.in-addr.arpa",
+    "origin": "88.168.192.in-addr.arpa",
     "records": [
         {
-            "name": "2",
+            "name": "17",
             "value": "ns1.akranes.xyz."
         },
          {
-            "name": "3",
+            "name": "18",
             "value": "ns2.akranes.xyz."
         },
         {
-            "name": "100",
+            "name": "19",
             "value": "www.akranes.xyz."
         },
         {
-            "name": "20",
+            "name": "31",
             "value": "mail.akranes.xyz."
         }
     ]
