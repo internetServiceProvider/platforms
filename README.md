@@ -1,102 +1,92 @@
+# ISP Platforms Deployment
 
-# 🧠 ISP Platform – I2T Lab Project
+Este repositorio contiene la infraestructura base para la implementación de servicios de red esenciales en un entorno de laboratorio para un Proveedor de Servicios de Internet (ISP). Está diseñado para ejecutarse en máquinas virtuales usando Vagrant y VirtualBox.
 
-This repository contains the modular implementation of services required to deploy an ISP using the **i2t lab's GPON network**. All services are virtualized via **Vagrant + VirtualBox** on top of **Ubuntu Server**.
+## 🧩 Servicios Implementados
 
----
+- **DNS primario y secundario** con soporte para:
+  - Registros A, AAAA, MX, TXT
+  - PTR reverso
+  - DNSSEC (RRSIG, DNSKEY)
+  - TSIG
+- **Servidor DHCPv4**
+- **Servidor NTP**
+- Scripts de validación de configuración DNS
 
-## 📁 Repository Structure
-
-Each functionality or service must be organized into separate folders by purpose. By convention, all implementations live under the `Services/` directory.
-
-```
-src/
-├── dhcp/
-│   ├── Vagrantfile
-│   ├── kea-dhcp-config.json
-|   ├── scripts/
-│          └──ntp_client_setup.sh
-|
-├── dns/
-|   ├─config/
-│   ├── zone_forward.json
-│   ├── zone_reverse.json
-│   |── zone_reverse_ipv6.json
-|   ├── scripts/
-│   |       └── setup_dns.sh
-│   |       └── ntp_client_setup.sh
-|   └── Vagrantfile
-│
-├── ntp/
-|   ├── ntp_server_setup.sh
-|   └── Vagrantfile
-├── iperf/
-|   └── Vagrantfile
-├── clientTest/
+## 🗂️ Estructura del repositorio
 
 ```
+platforms/
+  └── src
+        ├── dns/
+        │   ├── config/
+        │   │   ├── zone_forward.json
+        │   │   ├── zone_reverse_ipv6.json
+        │   │   ├── zone_reverse.json
+        │   ├── scripts/
+        │   │   ├── common_functions.sh
+        │   │   ├── ntp_client_setup.sh
+        │   │   ├── primary_setup.sh
+        │   │   ├── secondary_setup.sh
+        │   │   ├── test_dns.sh
+        │   │   ├── test2_dns.sh
+        │   │   └── test3_dns.sh
+        │   └── vagrantfile
+        ├── dhcp/
+        │   ├── scripts/
+        │   ├──  └── ntp_client_setup.sh
+        │   ├── kea-dhcp-config.json
+        │   └── vagrantfile
+        ├── ntp/
+        |   ├── ntp_server_setup.sh
+        |   └── Vagrantfile
+        └──
+```
 
----
+## ⚙️ Requisitos
 
-## 🛠️ Implementation Rules
+- Vagrant >= 2.3.x
+- VirtualBox >= 6.x
+- Conexión NAT o Bridge a Internet
 
-- All **code and configurations** must go inside their respective folder in `Services/`.
-- Each service must have its own `Vagrantfile` to enable independent deployment.
-- Configuration files must be **well commented and documented**.
-- Dependencies should be installed via `provision` blocks or shell scripts.
-- All scripts must be **idempotent** — they should not break if run multiple times.
-- Services must be deployable **individually or clustered**, depending on the project phase.
-
----
-
-## 🚀 How to Use This Repository
+## 🚀 Despliegue
 
 ```bash
-# 1. Clone the repo:
-git clone https://github.com/youruser/isp-infra.git
-cd isp-infra
-
-# 2. Go into the desired feature folder:
-cd features/dhcpv4
-
-# 3. Boot the VM:
+git clone https://github.com/internetServiceProvider/platforms.git
+cd platforms
 vagrant up
-
-# 4. To stop or destroy the VM:
-vagrant halt
-vagrant destroy
 ```
 
----
+Esto levantará las máquinas virtuales necesarias con los servicios configurados automáticamente.
 
-## 📦 Requirements
+## 🧪 Script de pruebas DNS
 
-- [VirtualBox](https://www.virtualbox.org/)
-- [Vagrant](https://www.vagrantup.com/)
-- Linux/macOS/WSL host with repo cloned
+El archivo `src/dns/scripts/test3_dns.sh` valida lo siguiente:
 
----
+- Resolución de registros A y PTR
+- Respuesta de servidores primario, secundario y localhost
+- Presencia de RRSIG y DNSKEY (DNSSEC)
+- Transferencias AXFR bloqueadas
+- Respuestas autoritativas (AA)
+- Consistencia entre registros
+- Respuesta correcta a NXDOMAIN
 
-## ✨ Naming Conventions
+## 🔐 Seguridad DNS
 
-- IPs are allocated from the `192.168.20.0/24` range.
-- Each VM must have a static IP defined in its `Vagrantfile`.
-- Use consistent, clear names: `dns`, `core-k8s`, `lb`, `webserver`, etc.
+- DNSSEC activado para el dominio `akranes.xyz`
+- Claves DNSKEY disponibles y firmadas
+- AXFR bloqueado por defecto
+- Validación con `dig` +dnssec y grep RRSIG
 
----
+## 👨‍💻 Autores
 
-## 📋 Project TODOs
+- Samuel Barona – Estudiante de Ingeniería Telemática
+- Lina Andrade – Estudiante de Ingeniería Telemática
+- Juan Velosa – Estudiante de Ingeniería Telemática
+- Kevin Nieto – Estudiante de Ingeniería Telemática && sistemas
+- Ricardo Urbina - Estudiante de Ingeniería Telemática && sistemas
+  
 
-- [x] Deploy DHCPv4
-- [x] Deploy NTP
-- [x] Deploy DNS
-- [x] Deploy IPERF
-- [ ] Deploy Load Balancer
-- [ ] Deploy LibreQoS
-- [ ] Deploy web server with QUIC
-- [ ] Deploy OpenWISP
-- [ ] Integrate monitoring with Zabbix or OpenWISP
+## 📝 Licencia
 
----
-
-> This repo should grow in layers — like an onion. Except it shouldn’t make future devs cry.
+MIT License – libre de usar, modificar y distribuir.
