@@ -30,16 +30,10 @@
       "name": "mail",
       "type": "A",
       "value": "192.168.88.31"
-    },
-    {
-      "name": "@",
-      "type": "MX",
-      "value": "10 mail.akranes.xyz"
-    },
-    {
-      "name": "@",
-      "type": "TXT",
-      "value": "\"v=spf1 mx -all\""
     }
+   
+    
+   
+    
   ]
 }
