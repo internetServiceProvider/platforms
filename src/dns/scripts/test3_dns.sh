@@ -9,11 +9,11 @@ SECONDARY_IP="192.168.88.18"     # ns2
 LOCAL_IP="127.0.0.1"
 DOMAIN="akranes.xyz"
 RECORDS=("www" "mail" "ns1" "ns2")
-PTR_IPS=("192.168.88.17" "192.168.88.18" "192.168.88.19" "192.168.88.31")
+PTR_IPS=("192.168.88.17" "192.168.88.18" "192.168.88.31")
 NON_EXISTENT="noexiste"
 
-# Valores esperados para registros A (ajustar según configuración real)
-EXPECTED_WWW="192.168.88.19"
+# Valores esperados para registros A (ajustados)
+EXPECTED_WWW="192.168.50.20"
 EXPECTED_MAIL="192.168.88.31"
 
 echo "=== TEST DNS COMPLETO: $(date) ==="
@@ -37,7 +37,6 @@ test_record() {
 
   # Si es CNAME, resolver el A del destino
   if [[ $result == *"." ]]; then
-    # Podría ser CNAME u otro, checamos con dig A
     cname_target=$(dig +short @"$server" "$name" CNAME 2>/dev/null)
     if [[ -n "$cname_target" ]]; then
       result=$(dig +short @"$server" "$cname_target" A 2>/dev/null)
@@ -52,7 +51,6 @@ test_record() {
     return 0
   fi
 }
-
 
 # Función para test DNSSEC (RRSIG)
 test_dnssec() {
