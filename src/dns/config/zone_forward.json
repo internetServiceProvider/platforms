@@ -14,26 +14,62 @@
     {
       "name": "ns1",
       "type": "AAAA",
-      "value": "2001:db8:0:1::1"
+      "value": "2001:db8:a:b:a00:27ff:fe49:cf3f"
     },
     {
-      "name": "www",
-      "type": "A",
-      "value": "192.168.88.19"
-    },
-    {
-      "name": "www",
+      "name": "ns2",
       "type": "AAAA",
-      "value": "2001:db8:0:1::10"
+      "value": "2001:db8:a:b:a00:27ff:fe86:1759"
+    },
+    {
+      "name": "web1",
+      "type": "A",
+      "value": "192.168.50.21"
+    },
+    {
+      "name": "web2",
+      "type": "A",
+      "value": "192.168.50.22"
+    },
+    {
+      "name": "proxy",
+      "type": "A",
+      "value": "192.168.50.20"
+    },
+    {
+      "name": "www",
+      "type": "CNAME",
+      "value": "proxy.akranes.xyz."
+    },
+    {
+      "name": "api",
+      "type": "CNAME",
+      "value": "proxy.akranes.xyz."
     },
     {
       "name": "mail",
       "type": "A",
       "value": "192.168.88.31"
+    },
+    {
+      "name": "@",
+      "type": "MX",
+      "value": "10 mail.akranes.xyz."
+    },
+    {
+      "name": "@",
+      "type": "TXT",
+      "value": "spfv1=a:mail.akranes.xyz"
+    },
+    {
+      "name": "_dmarc",
+      "type": "TXT",
+      "value": "v=DMARC1; p=quarantine; rua=mailto:postmaster@akranes.xyz; ruf=mailto:postmaster@akranes.xyz; fo=1;"
+    },
+    {
+      "name": "mail._domainkey",
+      "type": "TXT",
+      "value": "("v=DKIM1; h=sha256; k=rsa; " "p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzeLDxbadOnWMfr0HciZY2VnD/2888OBU6z8Ys4OIhrAr0ED32oQZUMQsvJgs8sc3ug/LsTqcPqatbnPlKu5BdGmm4B56gygFOkW9FfRwebF3/xS3hDFsSMq+hFUobfZ+p3wYBk6+QxA1jPTsjyaaGSN0BWiJrqzZmojoRLz4WGE4Deg2rar+lnymU9TdbGcz2tSTtz1ALgZsg3" "zimY6b43O97yzPktPy1CKiJ/RBBoxHdVG8MVEXh3PDcFw1i0OfmyxtwNc+r/9MTrOGUCpO0CajWQmrmXNqvG4pD0tTrXYsxU5dp8Z+18srPIqyjaP5jw2xRz3artXn9V8s6w9RrQIDAQAB")"
     }
-   
-    
-   
-    
   ]
 }
