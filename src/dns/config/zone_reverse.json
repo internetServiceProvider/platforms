@@ -1,21 +1,25 @@
 {
-    "origin": "88.168.192.in-addr.arpa",
-    "records": [
-        {
-            "name": "17",
-            "value": "ns1.akranes.xyz."
-        },
-         {
-            "name": "18",
-            "value": "ns2.akranes.xyz."
-        },
-        {
-            "name": "19",
-            "value": "www.akranes.xyz."
-        },
-        {
-            "name": "31",
-            "value": "mail.akranes.xyz."
-        }
-    ]
+  "origin": "88.168.192.in-addr.arpa.",
+  "records": [
+    {
+      "name": "17",
+      "type": "PTR",
+      "value": "ns1.akranes.xyz."
+    },
+    {
+      "name": "18",
+      "type": "PTR",
+      "value": "ns2.akranes.xyz."
+    },
+    {
+      "name": "19",
+      "type": "PTR",
+      "value": "www.akranes.xyz."
+    },
+    {
+      "name": "31",
+      "type": "PTR",
+      "value": "mail.akranes.xyz."
+    }
+  ]
 }
