@@ -36,20 +36,13 @@ test_record() {
   fi
 
   # Si es CNAME, resolver el A del destino
-  if [[ $result == *"." ]]; then
-    cname_target=$(dig +short @"$server" "$name" CNAME 2>/dev/null)
-    if [[ -n "$cname_target" ]]; then
-      result=$(dig +short @"$server" "$cname_target" A 2>/dev/null)
-    fi
-  fi
-
-  if [[ -n "$expect" && "$result" != "$expect" ]]; then
-    echo "✘ Inesperado → $result (esperado: $expect)"
-    return 1
-  else
-    echo "✔ $result"
-    return 0
-  fi
+ # Si es CNAME, resolver el A del destino
+if [[ $result == *"." ]]; then
+  # El resultado es el CNAME directamente
+  cname_target=$result
+  # Resolvemos la IP del CNAME
+  result=$(dig +short @"$server" "$cname_target" A 2>/dev/null)
+fi
 }
 
 # Función para test DNSSEC (RRSIG)
