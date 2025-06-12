@@ -1,3 +1,6 @@
+<img src=https://www.icesi.edu.co/bioseguridad/images/2025/03/19/logo-blanco.png width="250" height="100" align="center">
+
+-------------------
 # ISP Platforms Deployment
 
 Este repositorio contiene la infraestructura base para la implementación de servicios de red esenciales en un entorno de laboratorio para un Proveedor de Servicios de Internet (ISP). Está diseñado para ejecutarse en máquinas virtuales usando Vagrant y VirtualBox.
