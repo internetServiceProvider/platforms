@@ -8,29 +8,33 @@
       "socket-name": "/tmp/kea-dhcp4.socket"
     },
     "lease-database": {
-      "type": "memfile",      
-      "lfc-interval": 3600    
+      "type": "memfile",
+      "lfc-interval": 3600
     },
-    "valid-lifetime": 4000,  
-    "renew-timer": 1000,     
-    "rebind-timer": 2000,    
+    "valid-lifetime": 4000,
+    "renew-timer": 1000,
+    "rebind-timer": 2000,
     "subnet4": [
       {
-        "subnet": "192.168.10.0/24",  
+        "subnet": "192.168.90.0/24",
         "pools": [
           {
-            "pool": "192.168.10.50 - 192.168.10.150"  
+            "pool": "192.168.90.10 - 192.168.90.60"
           }
         ],
         "option-data": [
           {
             "name": "routers",
-            "data": "192.168.10.1"  
+            "data": "192.168.90.1"
           },
           {
-            "name": "domain-name-servers",
-            "data": "8.8.8.8, 8.8.4.4"  
-          }
+             "name": "domain-name-servers",
+             "data": "192.168.88.17 , 192.168.88.18"
+             },
+           {
+             "name": "domain-name",
+             "data": "akranes.xyz"
+           }
         ]
       }
     ]

@@ -1,0 +1,21 @@
+{
+  "origin": "50.168.192.in-addr.arpa.",
+  "records": [
+    {
+      "name": "20",
+      "type": "PTR",
+      "value": "proxy.akranes.xyz."
+    },
+    {
+      "name": "21",
+      "type": "PTR",
+      "value": "web1.akranes.xyz."
+    },
+    {
+      "name": "22",
+      "type": "PTR",
+      "value": "web2.akranes.xyz."
+    }
+   
+  ]
+}

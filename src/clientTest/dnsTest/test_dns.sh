@@ -1,17 +1,15 @@
 #!/bin/bash
-# test_dns.sh - Script de pruebas DNS mejorado
+# test_dns.sh - Script de pruebas DNS ajustado a akranes.xyz
 
 set -euo pipefail
 
 # --- Configuración ---
-# Cambiar la ip por la ip de cada servidor (ip de documentacion)
-# 
-PRIMARY_IP="192.0.2.1"
-SECONDARY_IP="192.0.2.2"
+PRIMARY_IP="192.168.88.17"     # ns1
+SECONDARY_IP="192.168.88.18"   # ns2
 FORWARD_JSON="/vagrant/config/zone_forward.json"
 REVERSE_JSON="/vagrant/config/zone_reverse.json"
-IP_TO_REVERSE="192.168.20.100"
-TEST_RECORDS=("ns1" "ns2" "www" "mail") # si existen mas registro agregar aqui
+IP_TO_REVERSE="192.168.88.19"  # IP de www.akranes.xyz para PTR
+TEST_RECORDS=("ns1" "ns2" "www" "mail")
 TIMEOUT=3  # Segundos para timeout de consultas
 
 # --- Validaciones iniciales ---

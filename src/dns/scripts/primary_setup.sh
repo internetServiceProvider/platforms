@@ -14,6 +14,7 @@ sudo apt install -y jq bind9 bind9utils bind9-dnsutils
 ZONE_DIR="/etc/bind/zones"
 FORWARD_JSON="/vagrant/config/zone_forward.json"
 REVERSE_JSON="/vagrant/config/zone_reverse.json"
+REVERSE_50_168_192_JSON="/vagrant/config/zone_reverse_50_168_192.json"
 REVERSE_IPV6_JSON="/vagrant/config/zone_reverse_ipv6.json"
 DOMAIN=$(jq -r '.origin' "$FORWARD_JSON" | sed 's/\.$//')
 TSIG_KEY="tsig-key"
@@ -36,10 +37,11 @@ EOF
 # 2. Generar archivos de zona desde JSON
 configure_zone "forward" "$FORWARD_JSON" "$ZONE_DIR/db.$DOMAIN" "$DOMAIN"
 configure_zone "reverse" "$REVERSE_JSON" "$ZONE_DIR/db.reverse" "$DOMAIN"
+configure_zone "reverse" "$REVERSE_50_168_192_JSON" "$ZONE_DIR/db.50.168.192" "$DOMAIN"
 configure_zone "reverse_ipv6" "$REVERSE_IPV6_JSON" "$ZONE_DIR/db.reverse.ipv6" "$DOMAIN"
 
 # 3. Configurar DNSSEC (opcional si usas dnssec-policy; puedes comentar esto si solo usas políticas)
-# setup_dnssec "$ZONE_DIR/db.$DOMAIN" "$DOMAIN"
+setup_dnssec "$ZONE_DIR/db.$DOMAIN" "$DOMAIN"
 
 # 4. Configurar named.conf.local con dnssec-policy
 cat > /etc/bind/named.conf.local <<EOF
@@ -62,6 +64,11 @@ zone "$(jq -r '.origin' "$REVERSE_JSON")" {
 zone "$(jq -r '.origin' "$REVERSE_IPV6_JSON")" {
     type master;
     file "$ZONE_DIR/db.reverse.ipv6";
+    allow-transfer { key $TSIG_KEY; };
+};
+zone "$(jq -r '.origin' "$REVERSE_50_168_192_JSON")" {
+    type master;
+    file "$ZONE_DIR/db.50.168.192";
     allow-transfer { key $TSIG_KEY; };
 };
 EOF

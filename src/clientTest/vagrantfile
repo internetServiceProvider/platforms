@@ -9,7 +9,7 @@ Vagrant.configure("2") do |config|
       # NIC1: Red interna para recibir IP por DHCP desde Kea
       client.vm.network "public_network", type: "dhcp"
       #Red para hacer testeo con las demas vm
-      #client.vm.network "public_network", ip: "192.168.20.4" ---> cambiar la ip a la red privada 
+      #client.vm.network "public_network", ip: "192.168.88.4" ---> cambiar la ip a la red privada 
       client.vm.provider "virtualbox" do |vb|
         vb.customize ["modifyvm", :id, "--memory", "512", "--cpus", "1", "--name", "clientest"]
         vb.customize ["modifyvm", :id, "--nicpromisc2", "allow-all"]

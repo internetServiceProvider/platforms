@@ -5,7 +5,7 @@ Vagrant.configure("2") do |config|
   config.vm.define "ntp-server" do |ntp|
     ntp.vm.box = "ubuntu/jammy64"
     ntp.vm.hostname = "ntp-colombia"
-    ntp.vm.network "public_network", ip: "192.168.20.10"
+    ntp.vm.network "public_network", ip: "192.168.88.10"
 
     ntp.vm.provider "virtualbox" do |vb|
       vb.memory = "512"

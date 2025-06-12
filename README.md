@@ -9,9 +9,14 @@ Este repositorio contiene la infraestructura base para la implementación de ser
   - PTR reverso
   - DNSSEC (RRSIG, DNSKEY)
   - TSIG
-- **Servidor DHCPv4**
+- **Servidor DHCPv4 con radvd para ipv6**
 - **Servidor NTP**
 - Scripts de validación de configuración DNS
+
+# Diagramas y Diapositivas 
+[Diagrama draw.io](https://drive.google.com/file/d/1fOLiqbf9Dqsi6Pjz7pXQDc1abWRWNbg0/view?usp=drive_link)
+
+[Figma presentacion](https://www.figma.com/design/i5gnODzQy96CFGwsyb3TJU/Untitled?node-id=0-1&t=LBvQMpHkIHE7qB8F-1)
 
 ## 🗂️ Estructura del repositorio
 
@@ -53,8 +58,11 @@ platforms/
 
 ```bash
 git clone https://github.com/internetServiceProvider/platforms.git
-cd platforms
+cd platforms/src
+cd servicio/
 vagrant up
+vagrant ssh
+
 ```
 
 Esto levantará las máquinas virtuales necesarias con los servicios configurados automáticamente.

@@ -5,7 +5,7 @@ Vagrant.configure("2") do |config|
     iperf.vm.box = "ubuntu/jammy64"
     iperf.vm.network "private_network", type: "dhcp"
     # Adaptador 3 - Ethernet (eth1) en bridge con IP estática
-    iperf.vm.network "public_network", bridge: "eth1", ip: "192.168.88.44"  #cambiar direccion de la vlan de core
+    iperf.vm.network "public_network", bridge: "eth1", ip: "192.168.88.32"  #cambiar direccion de la vlan de core
 
     iperf.vm.provider "virtualbox" do |vb|
         vb.customize ["modifyvm", :id, "--memory", "512", "--cpus", "1", "--name", "iperf"]
@@ -14,7 +14,7 @@ Vagrant.configure("2") do |config|
     end
     iperf.vm.provision "shell", inline: <<-SHELL
     apt-get update
-    sudo apt-get install -y iperf3
+    sudo apt-get install -y iperf3 mtr
     
     SHELL
     end

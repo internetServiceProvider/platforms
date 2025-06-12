@@ -1,13 +1,13 @@
 Vagrant.configure("2") do |config|
   config.vm.define "dns-primary" do |primary|
     primary.vm.box = "ubuntu/jammy64"
-    primary.vm.network "public_network", ip: "192.168.20.2"
+    primary.vm.network "public_network", ip: "192.168.88.17"
    
   end
 
   config.vm.define "dns-secondary" do |secondary|
     secondary.vm.box = "ubuntu/jammy64"
-    secondary.vm.network "public_network", ip: "192.168.20.3"
+    secondary.vm.network "public_network", ip: "192.168.88.18"
     
   end
 end
