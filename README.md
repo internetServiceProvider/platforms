@@ -107,7 +107,7 @@ El servicio `radvd` envía anuncios Router Advertisement (RA) para permitir auto
 ```bash
 interface enp0s9 {
   AdvSendAdvert on;
-  prefix 2001:db8:90::/64 {
+  prefix 2001:db8:a:b::/64 {
     AdvOnLink on;
     AdvAutonomous on;
     AdvRouterAddr on;
