@@ -67,6 +67,88 @@ vagrant ssh
 
 Esto levantará las máquinas virtuales necesarias con los servicios configurados automáticamente.
 
+## 🛠 DHCPv4 con Kea
+
+La carpeta `dhcp/kea-dhcp-config.json` contiene la configuración base del servicio DHCPv4.
+
+- Pool configurado: `192.168.90.10 – 192.168.90.60`
+- Subred: `192.168.90.0/24`
+- Gateway (routers): `192.168.90.1`
+- DNS: `192.168.88.17` y `192.168.88.18`
+- Dominio: `akranes.xyz`
+- Timers personalizados:
+  - valid-lifetime: 4000 s
+  - renew-timer: 1000 s
+  - rebind-timer: 2000 s
+
+**Recomendaciones:**
+
+- Verificar que la interfaz `enp0s9` esté activa y en la red correcta.
+- Reiniciar el servicio tras cambios:
+  ```bash
+  sudo systemctl restart kea-dhcp4
+  ```
+- Monitorear logs:
+  ```bash
+  journalctl -u kea-dhcp4 -f
+  ```
+
+---
+
+## 🌐 radvd (Router Advertisements para IPv6)
+
+El servicio `radvd` envía anuncios Router Advertisement (RA) para permitir autoconfiguración IPv6 sin necesidad de DHCPv6.
+
+### Configuración ejemplo:
+
+```bash
+interface enp0s9 {
+  AdvSendAdvert on;
+  prefix 2001:db8:90::/64 {
+    AdvOnLink on;
+    AdvAutonomous on;
+    AdvRouterAddr on;
+  };
+};
+```
+### Comandos útiles:
+
+```bash
+sudo systemctl restart radvd
+radvdump
+ip -6 addr show enp0s9
+```
+## 📶 Pruebas de rendimiento con iperf3
+
+`iperf3` es la herramienta utilizada para medir el rendimiento de la red local entre las máquinas virtuales.
+
+### Instalación:
+
+```bash
+sudo apt update
+sudo apt install iperf3
+```
+
+### Uso:
+
+- En el servidor:
+  ```bash
+  iperf3 -s
+  ```
+- En el cliente:
+  ```bash
+  iperf3 -c <IP del servidor>
+  ```
+
+### Ejemplo:
+
+```bash
+iperf3 -c 192.168.88.32
+```
+
+---
+---
+
 ## 🧪 Script de pruebas DNS
 
 El archivo `src/dns/scripts/test3_dns.sh` valida lo siguiente:
