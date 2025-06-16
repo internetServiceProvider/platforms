@@ -1,0 +1,3 @@
+mail._domainkey.akranes.xyz IN      TXT     ( "v=DKIM1; h=sha256; k=rsa; "
+          "p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzeLDxbadOnWMfr0HciZY2VnD/2888OBU6z8Ys4OIhrAr0ED32oQZUMQsvJgs8sc3ug/LsTqcPqatbnPlKu5BdGmm4B56gygFOkW9FfRwebF3/xS3hDFsSMq+hFUobfZ+p3wYBk6+QxA1jPTsjyaaGSN0BWiJrqzZmojoRLz4WGE4Deg2rar+lnymU9TdbGcz2tSTtz1ALgZsg3"
+          "zimY6b43O97yzPktPy1CKiJ/RBBoxHdVG8MVEXh3PDcFw1i0OfmyxtwNc+r/9MTrOGUCpO0CajWQmrmXNqvG4pD0tTrXYsxU5dp8Z+18srPIqyjaP5jw2xRz3artXn9V8s6w9RrQIDAQAB" )  ; ----- DKIM key mail for akranes.xyz

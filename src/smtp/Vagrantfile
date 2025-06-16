@@ -1,0 +1,22 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+Vagrant.configure("2") do |config|
+  config.vm.define "smtp" do |smtp|
+    smtp.vm.box = "ubuntu/jammy64"
+    smtp.vm.network "public_network", ip: "192.168.88.31"
+    smtp.vm.hostname = "akranes.xyz"
+
+    smtp.vm.provider "virtualbox" do |vb|
+      vb.memory = 1024
+      vb.cpus = 2
+    end
+
+    smtp.vm.provision "shell", inline: <<-SHELL
+      apt-get update
+      if ! id "smtpuser" &>/dev/null; then
+        sudo adduser --disabled-password --gecos "" smtpuser
+      fi
+      usermod -aG sudo smtpuser
+    SHELL
+  end
+end
